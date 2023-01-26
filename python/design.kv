@@ -1,0 +1,181 @@
+<LoginScreen>:
+
+    GridLayout:
+        cols: 1
+
+        GridLayout:
+            cols: 1
+            padding: 15, 15
+            spacing: 20, 20
+            Label:
+                text: "User Login"
+                font_size: '20sp'
+            TextInput:
+                id: username
+                hint_text: "Username"
+                size_hint_y: None
+                height: 50
+                size_hint_x: None
+                width: 400
+            TextInput:
+                id: password
+                password: True
+                hint_text: "Password"
+                size_hint_y: None
+                height: 50
+                size_hint_x: None
+                width: 400
+            RelativeLayout: 
+                StrokeButton:
+                    text: "Login"
+                    on_press: root.go_home_page(root.ids.username.text, root.ids.password.text)   
+                    size_hint: 0.3, 0.5 
+                    
+                    pos_hint: {'center_x':0.5, 'center_y':0.6} 
+            Label:
+                id: login_wrong
+                text:""
+
+        GridLayout:
+            cols: 2
+            size_hint: 0.2, 0.2
+            padding:10,10
+            spacing:10,0
+            Button:
+                text:"Forgot Password"
+                background_color:1,1,1,0
+                opacity: 1 if self.state =='normal' else 0.5
+                color: 1,0,0
+            Button:
+                text:"Sign Up"
+                background_color:1,1,1,0
+                opacity: 1 if self.state =='normal' else 0.5
+                color: 1,0,0
+                on_press: root.sign_up()  
+
+<SignUpScreen>:
+    GridLayout:
+        cols:1
+        padding: 50, 50
+        spacing: 50, 50
+        Label:
+            text:"SIGN up"
+            font_size: '20sp'
+            color: 1,0,0
+        TextInput:
+            id: username
+            hint_text:"Username"
+            size_hint_y: None
+            height: 50
+            size_hint_x: None
+            width: 400
+        TextInput:
+            id: password
+            hint_text:"Password"
+            size_hint_y: None
+            height: 50
+            size_hint_x: None
+            width: 400
+        RelativeLayout:
+            StrokeButton:
+                text:"Submit"
+                size_hint_y: 0.3
+                size_hint_x: 0.5
+                width: 200
+                height:50
+                
+                pos_hint: {'center_x':0.5, 'center_y':0.6} 
+                on_press: root.add_user(root.ids.username.text, root.ids.password.text)
+            
+
+
+    GridLayout:
+        cols:1
+        
+        Label:
+            text:""
+              
+
+<SignUpScreenSuccess>:
+    GridLayout:
+        cols:1
+        Label:
+            text:"successfully signed up"
+        RelativeLayout:
+            SmoothButton:
+                text:"Back to Login Screen"
+                size_hint_y: 0.3
+                size_hint_x: 0.5
+                width: 200
+                height:50
+                pos_hint: {'center_x':0.5, 'center_y':0.6} 
+                on_press: root.go_log_in() 
+        
+<HomePageScreen>:
+    GridLayout:
+        cols:1
+        Label:
+            text:"Sad or Happy"
+        TextInput:
+            id: feeling
+            hint_text:"sad,happy...etc"
+            size_hint_x: 0.5
+            
+            
+
+        RelativeLayout:
+            SmoothButton:
+                text:"Enlighten me"
+                size_hint_y: 0.3
+                size_hint_x: 0.5
+                width: 100
+                height:50
+                pos_hint: {'center_x':0.5, 'center_y':0.6} 
+                on_press: root.get_quote(root.ids.feeling.text)
+        ScrollView:
+            Label:
+                id: quote
+                text:""
+                text_size: self.width, None
+                size_hint_y: None
+                heigh: self.texture_size[1]
+            
+
+
+<SmoothButton@Button>:
+    background_color: (0,0,0,0,)
+    background_normal: ''
+    back_color: (1,0,0)
+    
+    canvas.before:
+        Color:
+            rgba:self.back_color
+        RoundedRectangle:
+            size:self.size
+            pos:self.pos
+            radius:10,
+
+<StrokeButton@Button>:
+    background_color: (0,0,0,0,)
+    background_normal: ''
+    back_color: (1,0,0)
+    border_radius: 10
+    color: self.back_color
+    bold: True
+    canvas.before:
+        Color:
+            rgba:self.back_color
+        Line:
+            rounded_rectangle:(self.pos[0],self.pos[1],self.size[0],self.size[1],self.border_radius)
+            width: 1.2
+
+<RootWidget>:
+    LoginScreen:
+        name: "Login_screen" 
+    SignUpScreen:
+        name:"sign_up_screen"
+    SignUpScreenSuccess:
+        name:"sign_up_screen_success"
+    HomePageScreen:
+        name:"home_page_screen"
+           
